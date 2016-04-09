@@ -13,6 +13,7 @@ var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 function getGeoCodedLatLngForLocations(locs, count, callback){
   if (count === 0){ return callback(); }
   var address = addressStringFromLocationObject(locs[count]);
+  var intensity = loc["Average Total Payments"] || intensityDivisor;
   var r = new XMLHttpRequest();
   r.open("GET", "https://maps.googleapis.com/maps/api/geocode/json?address=" + address, true);
   r.onreadystatechange = function () {
@@ -20,11 +21,9 @@ function getGeoCodedLatLngForLocations(locs, count, callback){
     response = JSON.parse(r.responseText);
     if (response.results[0]){
       latlng = response.results[0].geometry.location
-      lat = latlng["lat"];
-      lng = latlng["lng"];
-      addressPoints.push([lat, lng, intensity/intensityDivisor]);
+      addressPoints.push([latlng["lat"], latlng["lng"], intensity/intensityDivisor]);
     }
-    getGeoCodedLatLngForLocations(locs, count--, callback);
+    getGeoCodedLatLngForLocations(locs, count - 1, callback);
   };
   r.send();
 }
@@ -64,7 +63,6 @@ function handleFileSelect(evt) {
 }
 
 function handleDataArray(dataArray){
-  var intensity;
   var addressString;
   var descriptorKey;
   for (var i = 0; i < dataArray.length; i++){
@@ -87,16 +85,16 @@ function populateMenu(){
   var $secondChoice = $("#second-choice");
   $secondChoice.empty();
   $.each(procedures, function(key, value) {
-    $secondChoice.append("<option data-key" + key + ">" + key + "</option>");
+    $secondChoice.append("<option value='" + key + "'>" + key + "</option>");
   });
 }
 
 $("#second-choice").change(function() {
   addressPoints = [];
 	var selection = $(this);
-	var key = selection.data('key');
+	var key = selection.val();
   var locs = procedures[key];
-  getGeoCodedLatLngForLocations(locs, locs.length, drawHeatLayer);
+  getGeoCodedLatLngForLocations(locs, locs.length - 1, drawHeatLayer);
 });
 
 $(document).ready(function(){
