@@ -63,6 +63,7 @@ function handleFileSelect(evt) {
 }
 
 function handleDataArray(dataArray){
+  procedures = {};
   var addressString;
   var descriptorKey;
   for (var i = 0; i < dataArray.length; i++){
@@ -84,8 +85,17 @@ function handleDataArray(dataArray){
 function populateMenu(){
   var $secondChoice = $("#second-choice");
   $secondChoice.empty();
-  $.each(procedures, function(key, value) {
-    $secondChoice.append("<option value='" + key + "'>" + key + "</option>");
+  var orderedProcedures = getOrderedArrayOfProcedures();
+  orderedProcedures.forEach(function(procedureName) {
+    $secondChoice.append("<option value='" + procedureName + "'>" + procedureName + "</option>");
+  });
+}
+
+function getOrderedArrayOfProcedures(){
+  return Object.keys(procedures)
+  .filter(function(a){if (a) return a;})
+  .sort(function(a, b){
+    return parseInt(a.slice(0,4)) - parseInt(b.slice(0,4));
   });
 }
 
@@ -94,6 +104,7 @@ $("#second-choice").change(function() {
 	var selection = $(this);
 	var key = selection.val();
   var locs = procedures[key];
+  console.log('About to geocode', locs.length, 'data points');
   getGeoCodedLatLngForLocations(locs, locs.length - 1, drawHeatLayer);
 });
 
