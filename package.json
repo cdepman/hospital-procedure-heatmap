@@ -1,0 +1,53 @@
+{
+  "name": "procedure_cost_us",
+  "version": "0.0.0",
+  "description": "An exploration of hospital procedure costs",
+  "homepage": "https://github.com/cdepman/hospital-procedure-heatmap",
+  "keywords": [
+    "healthcare",
+    "heatmap",
+    "visualization",
+    "gis",
+    "leaflet",
+  ],
+  "author": "Charlie Depman",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:cdepman/hospital-procedure-heatmap.git"
+  },
+  "main": "js/main.js",
+  "devDependencies": {
+    "eslint": "^1.7.3",
+    "eslint-config-mourner": "^1.0.1",
+    "simpleheat": "~0.2.0",
+    "uglify-js": "^2.5.0"
+  },
+  "eslintConfig": {
+    "extends": "mourner",
+    "globals": {
+      "L": false,
+      "simpleheat": false
+    }
+  },
+  "scripts": {
+    "test": "eslint src",
+    "prepublish": "uglifyjs node_modules/simpleheat/simpleheat.js src/HeatLayer.js -c -m -o dist/leaflet-heat.js"
+  },
+  "license": "BSD-2-Clause",
+  "jshintConfig": {
+    "quotmark": "single",
+    "globals": {
+      "L": true,
+      "simpleheat": true
+    },
+    "trailing": true,
+    "camelcase": true,
+    "curly": true,
+    "eqeqeq": true,
+    "noempty": true,
+    "nonbsp": true,
+    "undef": true,
+    "unused": true,
+    "browser": true
+  }
+}
