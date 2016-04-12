@@ -74,7 +74,6 @@ function handleDataArray(dataArray){
     } else if (loc["DRG Definition"]) {
       descriptorKey = "DRG Definition";
     }
-
     if (!procedures[loc[descriptorKey]]){
       procedures[loc[descriptorKey]] = [];
     }

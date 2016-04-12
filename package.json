@@ -8,19 +8,28 @@
     "heatmap",
     "visualization",
     "gis",
-    "leaflet",
+    "leaflet"
   ],
   "author": "Charlie Depman",
   "repository": {
     "type": "git",
     "url": "git@github.com:cdepman/hospital-procedure-heatmap.git"
   },
-  "main": "js/main.js",
   "devDependencies": {
     "eslint": "^1.7.3",
     "eslint-config-mourner": "^1.0.1",
     "simpleheat": "~0.2.0",
     "uglify-js": "^2.5.0"
+  },
+  "dependencies": {
+    "body-parser": "~1.13.2",
+    "cookie-parser": "~1.3.5",
+    "debug": "~2.2.0",
+    "express": "~4.13.1",
+    "jade": "~1.11.0",
+    "morgan": "~1.6.1",
+    "pug": "^2.0.0-alpha3",
+    "serve-favicon": "~2.3.0"
   },
   "eslintConfig": {
     "extends": "mourner",
@@ -30,8 +39,9 @@
     }
   },
   "scripts": {
-    "test": "eslint src",
-    "prepublish": "uglifyjs node_modules/simpleheat/simpleheat.js src/HeatLayer.js -c -m -o dist/leaflet-heat.js"
+    "test": "eslint public/src",
+    "prepublish": "uglifyjs node_modules/simpleheat/simpleheat.js ./public/js/HeatLayer.js -c -m -o ./public/dist/leaflet-heat.js",
+    "start": "node ./server/bin/www"
   },
   "license": "BSD-2-Clause",
   "jshintConfig": {
