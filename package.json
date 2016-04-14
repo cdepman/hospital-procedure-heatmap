@@ -16,19 +16,28 @@
     "url": "git@github.com:cdepman/hospital-procedure-heatmap.git"
   },
   "devDependencies": {
+    "babel-cli": "^6.7.5",
+    "babel-preset-es2015": "^6.6.0",
     "eslint": "^1.7.3",
     "eslint-config-mourner": "^1.0.1",
     "simpleheat": "~0.2.0",
     "uglify-js": "^2.5.0"
   },
   "dependencies": {
+    "babel-cli": "^6.0.0",
     "body-parser": "~1.13.2",
     "cookie-parser": "~1.3.5",
     "debug": "~2.2.0",
     "express": "~4.13.1",
+    "forever": "^0.15.1",
+    "install": "^0.6.1",
     "jade": "~1.11.0",
     "morgan": "~1.6.1",
+    "npm": "^3.8.6",
+    "pg": "^4.5.3",
+    "pg-hstore": "^2.3.2",
     "pug": "^2.0.0-alpha3",
+    "sequelize": "^3.21.0",
     "serve-favicon": "~2.3.0"
   },
   "eslintConfig": {
@@ -41,7 +50,7 @@
   "scripts": {
     "test": "eslint public/src",
     "prepublish": "uglifyjs node_modules/simpleheat/simpleheat.js ./public/js/HeatLayer.js -c -m -o ./public/dist/leaflet-heat.js",
-    "start": "node ./server/bin/www"
+    "start": "nodemon ./server/bin/www"
   },
   "license": "BSD-2-Clause",
   "jshintConfig": {

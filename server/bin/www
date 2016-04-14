@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+/*
+DB Connection
+*/
+var sequelize = require('../db/connection');
 
 /**
  * Module dependencies.
